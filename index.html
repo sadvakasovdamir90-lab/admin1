@@ -52,6 +52,32 @@
                     <h2 class="text-3xl font-black italic uppercase">Управление Товарами</h2>
                     <button onclick="showModal('product-modal')" class="bg-orange-600 px-6 py-3 rounded-xl font-bold hover:bg-orange-500 transition shadow-lg shadow-orange-900/20"><i class="fas fa-plus mr-2"></i> Добавить товар</button>
                 </div>
+
+
+<div class="flex flex-col md:flex-row items-end gap-4 mb-8">
+    
+    <div class="relative flex-1 w-full">
+        <label class="text-[10px] font-black text-slate-500 uppercase ml-2 tracking-widest italic mb-1 block">Поиск товара</label>
+        <div class="relative">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-orange-500"></i>
+            <input type="text" id="admin-search-input" oninput="runAdvancedFilter()" 
+                placeholder="Артикул или название..." 
+                class="w-full pl-12 pr-4 py-4 rounded-2xl bg-[#1e293b] border border-slate-800 outline-none focus:border-orange-500 transition-all text-sm font-bold text-white">
+        </div>
+    </div>
+
+    <div class="w-full md:w-72">
+        <label class="text-[10px] font-black text-slate-500 uppercase ml-2 tracking-widest italic mb-1 block">Категория</label>
+        <select id="p-category" onchange="runAdvancedFilter()" class="w-full p-4 rounded-2xl bg-[#1e293b] border border-slate-800 outline-none font-bold text-white focus:border-orange-500 transition-all text-sm appearance-none cursor-pointer">
+    <option value="all">Все категории</option>
+    <option value="Техника">Техника</option>
+    <option value="Овощи">Овощи</option>
+    <option value="Продукты">Продукты</option>
+</select>
+    </div>
+
+</div>
+
                 <div class="bg-[#1e293b] rounded-[2.5rem] border border-slate-800 overflow-hidden shadow-2xl">
                     <table class="w-full text-left">
                         <thead class="bg-slate-800/50 text-[10px] font-black uppercase tracking-widest text-slate-500">
@@ -62,6 +88,11 @@
                     </table>
                     
                 </div>
+
+
+
+
+
             </div>
 
             <div id="tab-orders" class="tab-content">
@@ -92,15 +123,48 @@
             </div>
 
             <div id="tab-banners" class="tab-content space-y-6">
-                <h2 class="text-3xl font-black italic uppercase">Настройка баннеров</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-[#1e293b] p-6 rounded-3xl border border-slate-800">
-                        <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Основной Баннер 1</label>
-                        <input type="text" id="banner-1-url" class="w-full p-4 rounded-2xl mb-4" placeholder="URL картинки">
-                        <button onclick="saveBanners()" class="w-full bg-orange-600 py-3 rounded-xl font-bold">Обновить</button>
-                    </div>
+    <h2 class="text-3xl font-black italic uppercase mb-6">Настройка баннеров</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-[#1e293b] p-8 rounded-[2rem] border border-slate-800 space-y-4 shadow-xl">
+            <h3 class="text-orange-500 font-black italic uppercase text-sm mb-4">Основные баннеры (Слайдер)</h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-2">Баннер 1 (Главный)</label>
+                    <input type="text" id="main-banner-1" class="w-full p-4 rounded-2xl mt-1" placeholder="URL картинки 1">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-2">Баннер 2</label>
+                    <input type="text" id="main-banner-2" class="w-full p-4 rounded-2xl mt-1" placeholder="URL картинки 2">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase ml-2">Баннер 3</label>
+                    <input type="text" id="main-banner-3" class="w-full p-4 rounded-2xl mt-1" placeholder="URL картинки 3">
                 </div>
             </div>
+        </div>
+
+        <div class="bg-[#1e293b] p-8 rounded-[2rem] border border-slate-800 space-y-4 shadow-xl flex flex-col justify-between">
+            <div>
+                <h3 class="text-blue-500 font-black italic uppercase text-sm mb-4">Дополнительный баннер</h3>
+                <label class="text-[10px] font-bold text-slate-500 uppercase ml-2">Маленький баннер (Промо)</label>
+                <input type="text" id="small-banner" class="w-full p-4 rounded-2xl mt-1" placeholder="URL маленькой картинки">
+            </div>
+            
+            <button onclick="saveAllBanners()" class="w-full bg-orange-600 py-5 rounded-2xl font-black uppercase italic tracking-widest shadow-lg shadow-orange-900/40 hover:bg-orange-500 transition-all mt-6">
+                <i class="fas fa-save mr-2"></i> Сохранить все изменения
+            </button>
+        </div>
+    </div>
+
+<div class="mt-6 p-4 bg-orange-900/20 rounded-2xl border border-orange-500/30">
+    <label class="text-[10px] font-black text-orange-500 uppercase ml-2 tracking-widest">Окончание Акции (Таймер)</label>
+    <input type="datetime-local" id="promo-deadline" 
+        class="w-full bg-[#0f172a] border border-slate-700 p-4 rounded-xl mt-2 font-bold text-white outline-none focus:border-orange-500">
+</div>
+
+</div>
 
             <div id="tab-support" class="tab-content space-y-6">
                 <h2 class="text-3xl font-black italic uppercase">Чат с маман (Тех.Поддержка)</h2>
@@ -123,6 +187,16 @@
                 </div>
                 <input type="text" id="p-img" placeholder="Ссылка на фото (URL)" class="w-full p-4 rounded-2xl outline-none font-bold">
                 <div class="space-y-2 mt-4">
+
+                 <div class="space-y-1">
+    <label class="text-[10px] font-black text-slate-500 uppercase ml-2 tracking-widest italic">Категория товара</label>
+    <select id="p-category-modal" class="w-full p-4 rounded-2xl bg-[#0f172a] border border-slate-700 outline-none font-bold text-white focus:border-orange-500 transition-all text-sm appearance-none cursor-pointer">
+        <option value="Техника">Техника</option>
+        <option value="Овощи">Овощи</option>
+        <option value="Продукты">Продукты</option>
+    </select>
+</div>
+
     <label class="text-[10px] font-bold text-slate-500 uppercase italic">Характеристики товара</label>
     <div id="specs-container" class="space-y-2">
         </div>
@@ -130,6 +204,8 @@
         + Добавить параметр
     </button>
 </div>
+
+
                 <div class="flex gap-4 pt-4">
                     <button onclick="saveProduct()" class="flex-1 bg-orange-600 py-4 rounded-2xl font-black uppercase italic tracking-widest shadow-lg shadow-orange-900/40">Сохранить</button>
                     <button onclick="hideModal('product-modal')" class="flex-1 bg-slate-700 py-4 rounded-2xl font-black uppercase italic">Отмена</button>
@@ -151,107 +227,34 @@
         </div>
     </div>
 
+
+    <div id="toast" class="fixed top-[-100px] left-1/2 -translate-x-1/2 z-[2000] transition-all duration-500 ease-in-out">
+    <div class="bg-white/80 backdrop-blur-xl border border-white/50 px-8 py-4 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] flex items-center gap-4">
+        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg shadow-green-200">
+            <i class="fas fa-check"></i>
+        </div>
+        <div>
+            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 leading-none">Система</p>
+            <p class="text-sm font-bold italic text-slate-800">Данные успешно обновлены!</p>
+        </div>
+    </div>
+    
+</div>
+
     <script>
 
 
-   // 1. ДЕРЕКТЕР БАЗАСЫ (LocalStorage-дан алу немесе дефолттық мәндер)
-let db = {
-    products: JSON.parse(localStorage.getItem('products')) || [],
-    users: JSON.parse(localStorage.getItem('users')) || [
-        // Дефолттық мысалдар (Мерзімі қосылды)
-        { id: 1, name: "Садвакасов Дамир", phone: "7071112233", debt: 15500, deadline: "2026-03-10", status: "active" },
-        { id: 2, name: "Ибрагимов Асан", phone: "7712730000", debt: 0, deadline: "", status: "active" }
-    ],
-    promos: JSON.parse(localStorage.getItem('promos')) || [],
-    orders: JSON.parse(localStorage.getItem('orders')) || []
-};
+    // 1. ДЕРЕКТЕР БАЗАСЫ (LocalStorage)
+    let db = {
+        products: JSON.parse(localStorage.getItem('products')) || [],
+        users: JSON.parse(localStorage.getItem('users')) || [
+            { id: 1, name: "Садвакасов Дамир", debt: 15500, days: 45, status: "active" },
+            { id: 2, name: "Ибрагимов Асан", debt: 0, days: 0, status: "blocked" }
+        ],
+        promos: JSON.parse(localStorage.getItem('promos')) || [],
+        orders: JSON.parse(localStorage.getItem('orders')) || []
+    };
 
-// 2. АВТОМАТТЫ ТЕКСЕРУ: Қарыз мерзімі өтіп кетсе бұғаттау
-function autoCheckUsers() {
-    const today = new Date();
-    let changed = false;
-
-    db.users.forEach(u => {
-        if (u.debt > 0 && u.deadline) {
-            const limit = new Date(u.deadline);
-            // Егер бүгін мерзімнен кейін болса және статус активті болса
-            if (today > limit && u.status === 'active') {
-                u.status = 'blocked';
-                changed = true;
-            }
-        }
-    });
-
-    if (changed) {
-        localStorage.setItem('users', JSON.stringify(db.users));
-    }
-}
-
-// 3. ПАЙДАЛАНУШЫЛАР КЕСТЕСІН ШЫҒАРУ (Жаңартылған дизайн)
-function renderUsers() {
-    autoCheckUsers(); // Шығармас бұрын тексеріп аламыз
-    const list = document.getElementById('admin-user-list');
-    
-    list.innerHTML = db.users.map(u => {
-        const isExpired = u.deadline && new Date() > new Date(u.deadline) && u.debt > 0;
-        
-        return `
-            <tr class="hover:bg-slate-800/30 transition border-b border-slate-800">
-                <td class="p-6">
-                    <p class="font-bold italic text-white">${u.name}</p>
-                    <p class="text-[10px] text-slate-500 font-bold tracking-widest">+7 ${u.phone || '---'}</p>
-                </td>
-                <td class="p-6">
-                    <button onclick="editDebt(${u.id})" class="font-black ${u.debt > 0 ? 'text-red-500' : 'text-green-500'} italic hover:scale-110 transition">
-                        ${Number(u.debt).toLocaleString()} ₸
-                    </button>
-                </td>
-                <td class="p-6">
-                    <input type="date" value="${u.deadline || ''}" 
-                        onchange="updateDeadline(${u.id}, this.value)"
-                        class="bg-slate-800 text-[10px] font-bold p-2 rounded-lg border border-slate-700 outline-none text-orange-500 cursor-pointer">
-                    ${isExpired ? '<p class="text-[8px] text-red-500 mt-1 font-black uppercase animate-pulse">Просрочка!</p>' : ''}
-                </td>
-                <td class="p-6">
-                    <span class="px-3 py-1 rounded-full text-[9px] font-black uppercase ${u.status === 'active' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/20 text-red-600'}">
-                        ${u.status === 'active' ? 'Чист' : 'В БАНЕ'}
-                    </span>
-                </td>
-                <td class="p-6 text-right space-x-2">
-                    <button onclick="toggleUserStatus(${u.id})" class="bg-slate-800 px-4 py-2 rounded-xl text-[9px] font-black uppercase hover:bg-slate-700 transition border border-slate-700">
-                        ${u.status === 'active' ? 'Блок' : 'Разблок'}
-                    </button>
-                </td>
-            </tr>
-        `;
-    }).join('');
-}
-
-// 4. ҚАРЫЗДЫ ӨҢДЕУ ФУНКЦИЯСЫ
-function editDebt(id) {
-    const user = db.users.find(u => u.id === id);
-    const newDebt = prompt(`Введите сумму долга для ${user.name}:`, user.debt);
-    if (newDebt !== null) {
-        user.debt = parseInt(newDebt) || 0;
-        // Егер қарыз 0 болса, автоматты түрде разблок жасауға болады
-        if (user.debt === 0) {
-            user.status = 'active';
-            user.deadline = "";
-        }
-        localStorage.setItem('users', JSON.stringify(db.users));
-        renderUsers();
-    }
-}
-
-// 5. МЕРЗІМДІ (DEADLINE) ЖАҢАРТУ
-function updateDeadline(id, newDate) {
-    const user = db.users.find(u => u.id === id);
-    user.deadline = newDate;
-    localStorage.setItem('users', JSON.stringify(db.users));
-    renderUsers();
-}
-
-// Қалған функцияларды (openTab, showModal, т.б.) өзгеріссіз қалдыр...
     // 2. ТАБТАРДЫ АУЫСТЫРУ
     function openTab(evt, tabId) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
@@ -282,55 +285,64 @@ function updateDeadline(id, newDate) {
         container.appendChild(row);
     }
 
-    // 5. ТАУАРДЫ САҚТАУ (АРТИКУЛ + ХАРАКТЕРИСТИКА)
     function saveProduct() {
-        const name = document.getElementById('p-name').value;
-        const price = document.getElementById('p-price').value;
-        const oldPrice = document.getElementById('p-old-price').value;
-        const img = document.getElementById('p-img').value;
+    const name = document.getElementById('p-name').value;
+    const price = document.getElementById('p-price').value;
+    const oldPrice = document.getElementById('p-old-price').value;
+    const img = document.getElementById('p-img').value;
+    
+    // МҰНДА: Модалкадағы таңдалған категорияны айнымалыға аламыз
+    const category = document.getElementById('p-category-modal').value;
 
-        if (!name || !price) {
-            alert("Заполните название и цену!");
-            return;
-        }
-
-        // Автоматты Артикул жасау (QS-123456)
-        const article = "QS-" + Math.floor(100000 + Math.random() * 900000);
-
-        // Характеристикаларды жинау
-        const keys = document.querySelectorAll('.spec-key');
-        const values = document.querySelectorAll('.spec-value');
-        let specs = [];
-        keys.forEach((key, i) => {
-            if(key.value.trim() !== "" && values[i].value.trim() !== "") {
-                specs.push({ key: key.value, val: values[i].value });
-            }
-        });
-
-        const newProduct = {
-            id: Date.now(),
-            article: article,
-            name: name,
-            price: price,
-            oldPrice: oldPrice,
-            img: img,
-            specs: specs
-        };
-
-        // Базаға қосу
-        db.products.push(newProduct);
-        localStorage.setItem('products', JSON.stringify(db.products));
-
-        // Жаңарту
-        renderProducts();
-        hideModal('product-modal');
-        
-        // Форманы тазалау
-        document.getElementById('p-name').value = '';
-        document.getElementById('p-price').value = '';
-        document.getElementById('p-old-price').value = '';
-        document.getElementById('p-img').value = '';
+    if (!name || !price) {
+        alert("Заполните название и цену!");
+        return;
     }
+
+    // Автоматты Артикул жасау (QS-123456)
+    const article = "QS-" + Math.floor(100000 + Math.random() * 900000);
+
+    // Характеристикаларды жинау
+    const keys = document.querySelectorAll('.spec-key');
+    const values = document.querySelectorAll('.spec-value');
+    let specs = [];
+    keys.forEach((key, i) => {
+        if(key.value.trim() !== "" && values[i].value.trim() !== "") {
+            specs.push({ key: key.value, val: values[i].value });
+        }
+    });
+
+    const newProduct = {
+        id: Date.now(),
+        article: article,
+        name: name,
+        price: price,
+        oldPrice: oldPrice,
+        img: img,
+        category: category, // БАЗАҒА КАТЕГОРИЯ САҚТАЛАДЫ
+        specs: specs
+    };
+
+    // unshift арқылы жаңа тауарды тізімнің басына қосамыз
+    db.products.unshift(newProduct); 
+    localStorage.setItem('products', JSON.stringify(db.products));
+
+    // Жаңарту (Егер фильтр болса, соны қолданамыз)
+    if (typeof runAdvancedFilter === 'function') {
+        runAdvancedFilter(); 
+    } else {
+        renderProducts();
+    }
+
+    hideModal('product-modal');
+    
+    // Форманы тазалау
+    document.getElementById('p-name').value = '';
+    document.getElementById('p-price').value = '';
+    document.getElementById('p-old-price').value = '';
+    document.getElementById('p-img').value = '';
+    document.getElementById('specs-container').innerHTML = ''; // Спецификацияларды тазалау
+}
 
     // 6. ТАУАРЛАРДЫ ШЫҒАРУ
     function renderProducts() {
@@ -432,7 +444,206 @@ function updateDeadline(id, newDate) {
         setInterval(checkSupport, 3000);
     };
 
+
+// 1. Тауарды категориямен сақтау
+function saveProduct() {
+    const name = document.getElementById('p-name').value;
+    const price = document.getElementById('p-price').value;
+    const category = document.getElementById('p-category').value; // Жаңа
+    const img = document.getElementById('p-img').value;
     
+    // Артикул жасау (QS-12345)
+    const article = "QS-" + Math.floor(10000 + Math.random() * 90000);
+
+    const newProduct = {
+        id: Date.now(),
+        article: article,
+        name: name,
+        price: price,
+        category: category, // Жаңа
+        img: img
+    };
+
+    db.products.push(newProduct);
+    localStorage.setItem('products', JSON.stringify(db.products));
+    renderProducts();
+    hideModal('product-modal');
+}
+
+// 2. Артикул мен Категория бойынша бірден іздеу
+function runAdvancedFilter() {
+    const search = document.getElementById('admin-search-input').value.toLowerCase();
+    const cat = document.getElementById('admin-category-filter').value;
+    
+    const filtered = db.products.filter(p => {
+    // 1. Категорияны тексеру (p.category жоқ болса, бос мәтін деп аламыз)
+    const productCat = (p.category || "").trim().toLowerCase();
+    const filterCat = (cat || "all").trim().toLowerCase();
+
+    const categoryMatch = (filterCat === 'all' || productCat === filterCat);
+
+    // 2. Мәтінді тексеру (Аты немесе Артикулы)
+    const productName = (p.name || "").toLowerCase();
+    const productArticle = (p.article || "").toLowerCase();
+    const searchText = search.toLowerCase().trim();
+
+    const textMatch = productName.includes(searchText) || 
+                      productArticle.includes(searchText);
+    
+    return categoryMatch && textMatch;
+});
+
+// Тізімді қайта шығару
+displayProducts(filtered);
+}
+
+// 3. Кестені жаңарту
+function displayProducts(productsList) {
+    const list = document.getElementById('admin-product-list');
+    list.innerHTML = productsList.map(p => `
+        <tr class="hover:bg-slate-800/30 border-b border-slate-800">
+            <td class="p-6">
+                <div class="flex items-center gap-4">
+                    <img src="${p.img}" class="w-10 h-10 rounded-lg">
+                    <div>
+                        <p class="font-bold text-white">${p.name}</p>
+                        <p class="text-[9px] text-orange-500 font-black uppercase tracking-widest">${p.article}</p>
+                    </div>
+                </div>
+            </td>
+            <td class="p-6 font-bold text-xs text-slate-400">${p.category || 'Общая'}</td>
+            <td class="p-6 font-black text-white">${Number(p.price).toLocaleString()} ₸</td>
+            <td class="p-6 text-right">
+                <button onclick="deleteItem('products', ${p.id}, renderProducts)" class="text-red-500 hover:text-red-400">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    `).reverse().join('');
+}
+
+
+
+// 1. Базаға баннерлер бөлімін қосу (window.onload ішіне немесе басына)
+if (!localStorage.getItem('site_banners')) {
+    const defaultBanners = {
+        main: ['', '', ''],
+        small: ''
+    };
+    localStorage.setItem('site_banners', JSON.stringify(defaultBanners));
+}
+
+function saveAllBanners() {
+    const banners = {
+        main: [
+            document.getElementById('main-banner-1').value,
+            document.getElementById('main-banner-2').value,
+            document.getElementById('main-banner-3').value
+        ],
+        small: document.getElementById('small-banner').value,
+        deadline: document.getElementById('promo-deadline').value
+    };
+
+    localStorage.setItem('site_banners', JSON.stringify(banners));
+    
+    // Alert-тың орнына жаңа Toast шақырамыз
+    showToast();
+}
+
+
+
+function showToast() {
+    const toast = document.getElementById('toast');
+    
+    // Хабарламаны төмен түсіру
+    toast.style.top = "30px";
+    
+    // Дыбыстық эффект (опционально)
+    // new Audio('https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3').play();
+
+    // 3 секундтан кейін қайтадан жасыру
+    setTimeout(() => {
+        toast.style.top = "-100px";
+    }, 3000);
+}
+
+// 3. Админ панельді ашқанда қазіргі сілтемелерді инпуттарға толтыру
+function loadBannersToAdmin() {
+    const banners = JSON.parse(localStorage.getItem('site_banners'));
+    if (banners) {
+        document.getElementById('main-banner-1').value = banners.main[0] || '';
+        document.getElementById('main-banner-2').value = banners.main[1] || '';
+        document.getElementById('main-banner-3').value = banners.main[2] || '';
+        document.getElementById('small-banner').value = banners.small || '';
+    }
+}
+
+// window.onload функциясын жаңарту
+const oldLoad = window.onload;
+window.onload = () => {
+    if (oldLoad) oldLoad();
+    loadBannersToAdmin(); // Баннерлерді жүктеу
+};
+
+
+function runAdvancedFilter() {
+    // 1. Іздеу жолағы мен Категория таңдауын аламыз
+    const searchInput = document.getElementById('admin-search-input');
+    const categorySelect = document.getElementById('p-category');
+
+    if (!searchInput || !categorySelect) return;
+
+    const searchValue = searchInput.value.toLowerCase().trim();
+    const selectedCategory = categorySelect.value;
+
+    // 2. Базадағы тауарларды (db.products) сүзгіден өткіземіз
+    const filtered = db.products.filter(product => {
+        // Категория сәйкестігі (егер 'all' болса, бәрін өткізеді)
+        const matchesCategory = (selectedCategory === 'all' || product.category === selectedCategory);
+        
+        // Артикул немесе Аты бойынша іздеу
+        const productName = product.name ? product.name.toLowerCase() : "";
+        const productArticle = product.article ? product.article.toLowerCase() : "";
+        
+        const matchesText = productName.includes(searchValue) || productArticle.includes(searchValue);
+        
+        return matchesCategory && matchesText;
+    });
+
+    // 3. Нәтижені кестеге шығару
+    renderFilteredTable(filtered);
+}
+
+// Сүзілген тауарларды экранға шығаратын көмекші функция
+function renderFilteredTable(list) {
+    const listContainer = document.getElementById('admin-product-list');
+    if (!listContainer) return;
+
+    if (list.length === 0) {
+        listContainer.innerHTML = `<tr><td colspan="4" class="p-10 text-center text-slate-500 italic">Товары не найдены...</td></tr>`;
+        return;
+    }
+
+    listContainer.innerHTML = list.map(p => `
+        <tr class="hover:bg-slate-800/30 transition border-b border-slate-800">
+            <td class="p-6 flex items-center gap-4">
+                <img src="${p.img || 'https://via.placeholder.com/50'}" class="w-12 h-12 rounded-xl object-cover border border-slate-700">
+                <div>
+                    <p class="font-bold italic text-white">${p.name}</p>
+                    <p class="text-[10px] text-orange-500 font-black uppercase tracking-widest">${p.article || 'Нет артикула'}</p>
+                </div>
+            </td>
+            <td class="p-6 font-bold text-xs text-slate-400">${p.category || 'Прочее'}</td>
+            <td class="p-6 font-black text-orange-500 italic">${Number(p.price).toLocaleString()} ₸</td>
+            <td class="p-6 text-right">
+                <button onclick="deleteItem('products', ${p.id}, renderProducts)" class="text-red-500 p-2 hover:bg-red-500/10 rounded-xl transition">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
     </script>
 </body>
 </html>
